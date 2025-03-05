@@ -20,6 +20,7 @@ export default function Auth() {
       default:
         return <PhoneNumber />;
     }
+    
   };
 
   return (
