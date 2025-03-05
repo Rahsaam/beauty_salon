@@ -1,16 +1,10 @@
 "use client";
-import { useQuery, useMutation } from "@tanstack/react-query";
+
 import { Button, Flex } from "antd";
-import Image from "next/image";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type Post = {
-  user_id: number;
-  id: number;
-  title: string;
-  body: string;
-};
 
 export default function Home() {
 

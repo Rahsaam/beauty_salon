@@ -1,5 +1,4 @@
 import axios from "axios";
-import type { DefaultResponse } from "axios";
 // import {store} from "../store/store";
 // import {clearToken} from "./authentication/functions/authSlice";
 

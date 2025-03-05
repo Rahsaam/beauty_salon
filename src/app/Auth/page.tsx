@@ -7,7 +7,7 @@ import GetOtp from "../components/AuthUi/GetOtp";
 import Info from "../components/AuthUi/Info";
 
 export default function Auth() {
-  const { loading, currentStep } = useAuth();
+  const { currentStep } = useAuth();
 
   const renderStep = () => {
     switch (currentStep) {

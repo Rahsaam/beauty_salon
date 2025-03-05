@@ -3,7 +3,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useTimer } from "@/hooks/useTimer";
 import { Button, Input, Typography } from "antd";
 import { OTPProps } from "antd/es/input/OTP";
-import { useEffect } from "react";
 import { CiEdit } from "react-icons/ci";
 
 const { Title } = Typography;
@@ -17,10 +16,6 @@ export default function GetOtp() {
     handleResendOtp,
   } = useAuth();
   const { timer, startTimer } = useTimer(30);
-
-  useEffect(() => {
-    startTimer();
-  }, []);
 
   const handleResend = async () => {
     try {
