@@ -1,0 +1,1 @@
+export const toFarsiDigits = (num: string) => num.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);

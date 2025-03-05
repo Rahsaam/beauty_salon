@@ -1,10 +1,13 @@
+import '@ant-design/v5-patch-for-react-19';
 import type { Metadata } from "next";
 import "./globals.css";
 import "./font.css";
 import "./style.css";
 import QueryProvider from "./components/QueryProvider";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, App } from "antd";
 import appTheme from "./theme";
+import { AuthProvider } from "@/context/AuthContext";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,12 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="">
+      <body>
         <div className="container">
           <QueryProvider>
-            <ConfigProvider direction="rtl" theme={appTheme}>
-              {children}
-            </ConfigProvider>
+            <AuthProvider>
+              <ConfigProvider direction="rtl" theme={appTheme}>
+                <App>
+                  {children}
+                </App>
+              </ConfigProvider>
+            </AuthProvider>
           </QueryProvider>
         </div>
       </body>

@@ -10,10 +10,11 @@ const appTheme: ThemeConfig = {
   components: {
     Button: {
       colorPrimary: "#C7274B",
-      colorPrimaryHover: "#a71f3e",
+    //   colorPrimaryHover: "#a71f3e",
       colorPrimaryActive: "#8c1a36",
       colorTextLightSolid: "#FFFFFF",
-      controlHeight: 40, 
+      borderRadius: 100,
+      controlHeight: 60, 
       fontSize: 16, 
       fontWeight: 300, 
     },
