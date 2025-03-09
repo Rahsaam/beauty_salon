@@ -34,7 +34,7 @@ export default function Home() {
             LOGO
           </h1>
           <Flex vertical style={{ width: "60%" }}>
-            <Button color="default" block variant="outlined" ghost>
+            <Button style={{borderColor: 'white', color: 'white'}} block variant="outlined" ghost>
               دریافت نوبت
             </Button>
             <div className="text-center w-full mt-6">

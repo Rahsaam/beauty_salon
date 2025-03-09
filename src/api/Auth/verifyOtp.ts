@@ -6,7 +6,7 @@ interface IVerifyOtp {
 }
 
 const verifyOtp = async (data: IVerifyOtp) => {
-    const response = await request.post('/verify-otp.php', data);
+    const response = await request.post('https://teamim.org/beauty/api/verify-otp.php', data);
     return response;
 };
 

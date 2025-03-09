@@ -1,66 +1,75 @@
 // context/AuthContext.tsx
 "use client";
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useState } from "react";
 import { useAuthActions } from "@/hooks/useAuthActions";
-
-type AuthStep = "phone" | "otp" | "info";
+import { useSteps } from "@/hooks/useSteps";
+import { useWorkHours } from "@/hooks/useWorkHours";
+import { AuthStep, DayKey, WorkHours } from "@/types/auth";
+import { Dayjs } from "dayjs";
 
 type AuthContextType = {
   phoneNumber: string;
-  setPhoneNumber: (value: string) => void;
   otp: string;
-  setOtp: (value: string) => void;
   name: string;
-  setName: (value: string) => void;
-  activity: string;
-  setActivity: (value: string) => void;
   city: string;
-  setCity: (value: string) => void;
-  handleVerify: () => Promise<void>;
   loading: boolean;
   error: string | null;
-  setError: (value: string) => void;
   currentStep: AuthStep;
+  workHours: WorkHours;
+  repeat: string;
+  myServices: string;
+  category: string;
+  price: string;
+  timing: string;
+  setTiming: (value: string) => void;
+  setPrice: (value: string) => void;
+  setCategory: (value: string) => void;
+  setMyServices: (value: string) => void;
+  setRepeat: (value: string) => void;
   setCurrentStep: (step: AuthStep) => void;
+  setPhoneNumber: (value: string) => void;
+  setOtp: (value: string) => void;
+  setName: (value: string) => void;
+  setCity: (value: string) => void;
+  setError: (value: string) => void;
+  handleVerify: () => Promise<void>;
+  handleResendOtp: () => Promise<void>;
   goToNextStep: () => void;
   goToPrevStep: () => void;
-  handleResendOtp: () => Promise<void>;
+  addWorkHours: (day: DayKey) => void;
+  removeWorkHours: (day: DayKey, id: number) => void;
+  updateWorkHours: (
+    day: DayKey,
+    id: number,
+    type: "startTime" | "endTime",
+    time: Dayjs
+  ) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [name, setName] = useState<string>("");
-  const [activity, setActivity] = useState<string>("");
-  const [city, setCity] = useState<string>("");
+  const [name, setName] = useState("");
+  const [city, setCity] = useState("");
+  const [myServices, setMyServices] = useState("");
+  const [category, setCategory] = useState("");
+  const [repeat, setRepeat] = useState("");
+  const [price, setPrice] = useState("");
+  const [timing, setTiming] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [currentStep, setCurrentStep] = useState<AuthStep>("phone");
+  
+  const { currentStep, setCurrentStep, goToNextStep, goToPrevStep } = useSteps('phone');
+  const { workHours, addWorkHours, removeWorkHours, updateWorkHours } = useWorkHours();
   const { requestOtpMutation, verifyOtpMutation } = useAuthActions();
 
-  const goToNextStep = () => {
-    const steps: AuthStep[] = ["phone", "otp", "info"];
-    const currentIndex = steps.indexOf(currentStep);
-    if (currentIndex < steps.length - 1) {
-      setCurrentStep(steps[currentIndex + 1]);
-    }
-  };
-
-  const goToPrevStep = () => {
-    const steps: AuthStep[] = ["phone", "otp", "info"];
-    const currentIndex = steps.indexOf(currentStep);
-    if (currentIndex > 0) {
-      setCurrentStep(steps[currentIndex - 1]);
-    }
-  };
-
   const handleVerify = async () => {
-    setLoading(true);
-    setError(null);
-
     try {
+      setLoading(true);
+      setError(null);
+
       if (currentStep === "phone") {
         await requestOtpMutation.mutateAsync({ phone_number: phoneNumber });
         goToNextStep();
@@ -71,25 +80,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         goToNextStep();
       }
     } catch (error) {
-      if (error instanceof Error) {
-        setLoading(false);
-      }
+      setError(error instanceof Error ? error.message : "An unknown error occurred");
     } finally {
       setLoading(false);
     }
   };
 
   const handleResendOtp = async () => {
-    setLoading(true);
-    setError(null);
     try {
+      setLoading(true);
+      setError(null);
       await requestOtpMutation.mutateAsync({ phone_number: phoneNumber });
     } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("خطا در ارسال مجدد کد");
-      }
+      setError(error instanceof Error ? error.message : "Failed to resend OTP");
     } finally {
       setLoading(false);
     }
@@ -99,35 +102,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         phoneNumber,
-        setPhoneNumber,
         otp,
-        setOtp,
         name,
-        setName,
-        activity,
-        setActivity,
         city,
-        setCity,
-        handleVerify,
         loading,
         error,
-        setError,
         currentStep,
+        workHours,
+        repeat,
+        myServices,
+        category,
+        price,
+        timing,
+        setTiming,
+        setPrice,
+        setCategory,
+        setMyServices,
+        setRepeat,
         setCurrentStep,
+        setPhoneNumber,
+        setOtp,
+        setName,
+        setCity,
+        setError,
+        handleVerify,
+        handleResendOtp,
         goToNextStep,
         goToPrevStep,
-        handleResendOtp,
+        addWorkHours,
+        removeWorkHours,
+        updateWorkHours,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
   return context;
-}
+};

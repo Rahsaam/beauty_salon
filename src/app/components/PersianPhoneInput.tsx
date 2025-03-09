@@ -8,7 +8,7 @@ interface PhoneInputProps {
 }
 
 // Function to convert English digits to Persian digits
-const toPersianDigits = (num: string): string => {
+export const toPersianDigits = (num: string): string => {
   const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
   return num.replace(/[0-9]/g, (match) => persianDigits[parseInt(match)]);
 };
@@ -85,10 +85,11 @@ const PersianPhoneInput = (props: PhoneInputProps) => {
         value={displayValue}
         onChange={handleChange}
         onBlur={handleBlur}
-        placeholder="شماره موبایل را وارد کنید"
+        placeholder="90******** "
         maxLength={10}
         style={{ textAlign: 'left', direction: 'ltr'}}
         className='phoneNumber'
+        autoFocus 
       />
     </Tooltip>
   );

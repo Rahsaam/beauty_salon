@@ -1,25 +1,31 @@
 "use client";
-import { activityOptions } from "@/constance/activities";
+import { activityOptions } from "@/constance/options";
 import { useAuth } from "@/context/AuthContext";
-import { Button, Form, Input, Select, Space, Typography } from "antd";
+import { Button, Form, Input, Select, Typography } from "antd";
 const { Title } = Typography;
 
 export default function Info() {
-  const { name, setName, city, setCity, activity, setActivity } = useAuth();
+  const { name, setName, city, setCity, setCurrentStep } = useAuth();
 
   const handleActivityChange = (value: string) => {
-    setActivity(value);
+    setCity(value);
   };
+
+  const handleSubmit = () => {
+    setCurrentStep("calendar");
+  };
+
+  const isFormValid = name && city;
 
   return (
     <Form
       name="info_form"
       layout="vertical"
-      className="mx-auto flex flex-col justify-between min-h-[500px] text-center w-full"
-      // onFinish={handleSubmit}
+      className="mx-auto flex flex-col justify-around min-h-[570px] text-center w-full"
+      onFinish={handleSubmit}
       requiredMark={false}
     >
-      <div className="mt-20">
+      <div className="">
         <Title className="text-center" level={4}>
           به کیوتیم خوش آمدید
         </Title>
@@ -27,13 +33,6 @@ export default function Info() {
           لطفا اطلاعات خود را وارد نمایید
         </Title>
 
-        <Space
-          size="small"
-          className="w-full mt-4"
-          direction="vertical"
-          style={{ width: "100%" }}
-          dir="ltr"
-        >
           <Form.Item
             name="name"
             label={null}
@@ -50,6 +49,7 @@ export default function Info() {
               placeholder="نام و نام‌خانوادگی"
               onChange={(e) => setName(e.target.value)}
               value={name}
+              autoFocus
             />
           </Form.Item>
 
@@ -57,39 +57,30 @@ export default function Info() {
             name="activity"
             label={null}
             rules={[
-              { required: true, message: "لطفا حوزه فعالیت را انتخاب کنید" },
+              { required: true, message: "لطفا منطقه کاری را انتخاب کنید" },
             ]}
             className="w-full text-right"
           >
             <Select
               size="large"
               onChange={handleActivityChange}
-              value={activity}
+              value={city}
               style={{ width: "100%", textAlign: "right" }}
               allowClear
               options={activityOptions}
-              placeholder="انتخاب حوزه فعالیت"
+              placeholder="انتخاب منطقه‌ کاری"
             />
           </Form.Item>
-
-          <Form.Item
-            name="city"
-            label={null}
-            rules={[{ required: true, message: "لطفا شهر خود را وارد کنید" }]}
-            className="w-full text-right"
-          >
-            <Input
-              size="large"
-              placeholder="شهر"
-              onChange={(e) => setCity(e.target.value)}
-              value={city}
-            />
-          </Form.Item>
-        </Space>
       </div>
 
       <Form.Item label={null}>
-        <Button type="primary" htmlType="submit" className="w-full">
+        <Button
+          onClick={handleSubmit}
+          type="primary"
+          htmlType="submit"
+          className="w-full mb-44"
+          disabled={!isFormValid}
+        >
           ثبت نام
         </Button>
       </Form.Item>

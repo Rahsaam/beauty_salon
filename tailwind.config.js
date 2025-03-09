@@ -22,6 +22,7 @@ const tailwindConfig = {
       },
       colors: {
         primary: "#C7274B",
+        Bgray: '#989898',
       },
       screens: {
         mdx: "992px",

@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useTimer } from "@/hooks/useTimer";
 import { Button, Input, Typography } from "antd";
 import { OTPProps } from "antd/es/input/OTP";
+import { useEffect } from "react";
 import { CiEdit } from "react-icons/ci";
 
 const { Title } = Typography;
@@ -14,8 +15,13 @@ export default function GetOtp() {
     handleVerify,
     loading,
     handleResendOtp,
+    setCurrentStep
   } = useAuth();
   const { timer, startTimer } = useTimer(30);
+  
+  useEffect(() => {
+    startTimer(30);
+  }, []);
 
   const handleResend = async () => {
     try {
@@ -61,11 +67,17 @@ export default function GetOtp() {
     setOtp(otpValue);
   };
 
+  const handleEditPhoneNumber = () => {
+    setCurrentStep("phone"); // تغییر مرحله به phone
+  };
+
+  
+
   const { text, onClick, disabled } = getButtonProps();
 
   return (
-    <div className="mx-auto text-center min-h-[500px] flex flex-col justify-between w-full">
-      <div className="mt-20">
+    <div className="mx-auto text-center justify-around min-h-[570px] flex flex-col w-full">
+      <div className="">
         <Title className="text-center" level={5}>
           کد تایید را وارد کنید
         </Title>
@@ -73,7 +85,7 @@ export default function GetOtp() {
           کد ارسال شده به شماره موبایل خود را وارد نمایید
         </p>
         <div className="bg-[#e4c6d6] max-w-36 mx-auto text-center justify-around flex rounded-2xl items-center mb-4">
-          <CiEdit className="text-xl font-bold" />
+          <CiEdit onClick={handleEditPhoneNumber} className="text-xl font-bold pointer" />
           <span className="inline-block  text-[#923468] py-1 font-extralight ">
             {phoneNumber.replace("+98", "0")}
           </span>
@@ -85,7 +97,7 @@ export default function GetOtp() {
           length={4}
           className="my-4 w-full"
           style={{ textAlign: "left", direction: "ltr" }}
-
+          autoFocus
         />
 
         {timer > 0 ? (
@@ -102,6 +114,7 @@ export default function GetOtp() {
         onClick={onClick}
         disabled={disabled}
         loading={loading}
+        className="mb-48"
       >
         {loading ? "در حال ارسال..." : text}
       </Button>

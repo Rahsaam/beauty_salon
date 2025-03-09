@@ -16,14 +16,14 @@ export default function PhoneNumber() {
     setCurrentStep
   } = useAuth();
 
-  // بررسی و تنظیم پیشوند +98
+
   useEffect(() => {
     if (!phoneNumber.startsWith("+98")) {
       setPhoneNumber("+98");
     }
   }, [phoneNumber, setPhoneNumber]);
 
-  // مدیریت تغییر شماره تلفن
+
   const handlePhoneChange = (value: string) => {
     if (!value.startsWith("+98")) {
       setPhoneNumber("+98" + value);
@@ -38,8 +38,8 @@ export default function PhoneNumber() {
   };
 
   return (
-    <div className="mx-auto flex flex-col justify-between min-h-[500px] text-center w-full">
-      <div className="mt-20">
+    <div className="mx-auto flex flex-col justify-around min-h-[570px] text-center w-full">
+      <div className="">
         <Title className="text-center" level={5}>
           ورود یا ثبت‌نام
         </Title>
@@ -49,11 +49,12 @@ export default function PhoneNumber() {
 
         <Space.Compact dir="ltr" className="mt-2">
           <PersianPhoneInput
-            value={phoneNumber.replace("+98", "")} // حذف +98 برای نمایش
+            value={phoneNumber.replace("+98", "")}
             onChange={handlePhoneChange}
           />
           <Input
             style={{ width: "15%" }}
+            className=""
             defaultValue={`${numberFormat(98)}+`}
             disabled
           />
@@ -70,8 +71,7 @@ export default function PhoneNumber() {
         onClick={handleSubmit}
         disabled={phoneNumber.length !== 13 || loading}
         loading={loading}
-        // style={{width: '82.5%'}}
-        className="mx-auto w-full"
+        className="mx-auto w-full mb-48"
       >
         {loading ? "لطفاً منتظر بمانید..." : "دریافت کد"}
       </Button>

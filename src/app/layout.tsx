@@ -7,6 +7,18 @@ import QueryProvider from "./components/QueryProvider";
 import { ConfigProvider, App } from "antd";
 import appTheme from "./theme";
 import { AuthProvider } from "@/context/AuthContext";
+// import ShamsiMonths from '@/constance/ShamsiMonths';
+import dayjs from 'dayjs'
+import jalaliday from 'jalaliday'
+import locale from 'antd/locale/fa_IR';
+import 'dayjs/locale/fa';
+
+dayjs.extend(jalaliday);
+dayjs().calendar('jalali').locale('fa').format('YYYY/MM/DD')
+
+const farsiMonthsLocale = locale;
+// farsiMonthsLocale.DatePicker.lang.shortMonths = ShamsiMonths;
+
 
 
 export const metadata: Metadata = {
@@ -25,7 +37,7 @@ export default function RootLayout({
         <div className="container">
           <QueryProvider>
             <AuthProvider>
-              <ConfigProvider direction="rtl" theme={appTheme}>
+              <ConfigProvider direction="rtl" theme={appTheme} locale={farsiMonthsLocale}>
                 <App>
                   {children}
                 </App>

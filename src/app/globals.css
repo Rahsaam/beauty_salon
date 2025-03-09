@@ -3,10 +3,10 @@
 .container {
   font-family: 'IranSans' !important;
   direction: rtl;
-  background-color: #F8F8F8;
+  background-color: #FFFFFF;
   margin: 0 auto;
   max-width: 568px;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .first-loading-container {
@@ -44,10 +44,57 @@
 }
 
 .phoneNumber.ant-input {
-  border-radius: 0 !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  border: 1.5px solid #6F0E37 !important;
+  height: 50px;
 }
 
 .ant-otp-input {
   border: none !important;
   height: 40px !important;
+  width: 40px !important;
+  border: 1.5px solid #6F0E37 !important;
+}
+
+.weekdays {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.weekdays::-webkit-scrollbar {
+  display: none;
+}
+
+.weekdays span {
+  width: 100px;
+  display: block;
+  margin-left: 10px;
+  font-size: clamp(1rem, 0.1cqi, 1.3rem);
+  color: #fff;
+  color: #78879e;
+  display: flex;
+  justify-content: center;
+}
+
+.timePickerContainer {
+  max-width: 320px !important;
+}
+
+.calendar-work-box {
+  border: 0.5px solid #EAE4E4;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.service-work-box {
+  border: 0.5px solid #EAE4E4;
+  border-radius: 16px;
+  padding: 16px !important;
+  /* height: 130px !important; */
 }
