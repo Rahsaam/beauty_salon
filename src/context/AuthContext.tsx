@@ -1,6 +1,6 @@
 // context/AuthContext.tsx
 "use client";
-import { createContext, useContext, ReactNode, useState } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { useAuthActions } from "@/hooks/useAuthActions";
 import { useSteps } from "@/hooks/useSteps";
 import { useWorkHours } from "@/hooks/useWorkHours";
@@ -85,6 +85,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const savedName = localStorage.getItem("name");
+    if (savedName) setName(savedName);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("name", name);
+  }, [name]);
 
   const handleResendOtp = async () => {
     try {

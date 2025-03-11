@@ -5,7 +5,7 @@ import { categoryOptions, timingOptions } from '@/constance/options';
 import { IInputBox, IServiceBox } from '@/types/props';
 import InputBox from '../common/InputBox';
 import { Button } from 'antd';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 export default function AddNewService() {
     const {myServices, setMyServices, category, setCategory, price, setPrice, timing, setTiming} = useAuth();

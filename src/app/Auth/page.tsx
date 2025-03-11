@@ -11,7 +11,7 @@ import MyServices from "@/app/components/AuthUi/MyServices";
 import AddNewService from "@/app/components/AuthUi/AddNewService";
 
 export default function Auth() {
-  const { currentStep } = useAuth();
+  const { currentStep, goToPrevStep } = useAuth();
 
   const renderStep = () => {
     switch (currentStep) {
@@ -43,9 +43,9 @@ export default function Auth() {
       ) : (
         <div className="w-full bg-[#FBF8F9] mb-2 z-100 fixed top-0">
           <div className="w-full max-w-[390px] mx-auto p-4 my-2">
-            {currentStep === "calendar" && <ActionLink title="تقویم کاری" />}
-            {currentStep === "service" && <ActionLink title="خدمات من" />}
-            {currentStep === "newService" && <ActionLink title="اضافه کردن خدمت جدید" />}
+            {currentStep === "calendar" && <ActionLink title="تقویم کاری" isArrow={true} handleAction={goToPrevStep} isNotif={false}/>}
+            {currentStep === "service" && <ActionLink title="خدمات من" isArrow={true} handleAction={goToPrevStep} isNotif={false}/>}
+            {currentStep === "newService" && <ActionLink title="اضافه کردن خدمت جدید" isArrow={true} handleAction={goToPrevStep} isNotif={false}/>}
           </div>
         </div>
       )}

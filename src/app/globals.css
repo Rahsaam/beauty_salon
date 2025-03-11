@@ -6,7 +6,6 @@
   background-color: #FFFFFF;
   margin: 0 auto;
   max-width: 568px;
-  /* height: 100vh; */
 }
 
 .first-loading-container {
@@ -16,6 +15,36 @@
   display: grid;
   place-items: center;
   height: 100vh;
+}
+
+/* antd segment */
+.ant-segmented-group {
+  border: 2px solid #EBE1E1;
+  background: transparent;
+  border-radius: 10px;
+  height: 50px;
+  padding: 2px;
+}
+
+.ant-segmented {
+  background-color: transparent;
+}
+
+.ant-segmented-item {
+  background-color: #FFFFFF;
+  padding-top: 7px;
+  color: #6F0E37;
+}
+
+.ant-segmented-item-selected {
+  background-color: #6F0E37 !important;
+  color: #FFFFFF !important;
+  border-radius: 10px !important;
+}
+
+.ant-segmented-item:hover {
+  background-color: #FFFFFF !important;
+  color: unset !important;
 }
 
 .onboarding {
@@ -96,5 +125,10 @@
   border: 0.5px solid #EAE4E4;
   border-radius: 16px;
   padding: 16px !important;
-  /* height: 130px !important; */
+}
+
+.schduleCard .ant-card-body {
+  padding: 13px !important;
+  box-shadow: unset !important;
+
 }

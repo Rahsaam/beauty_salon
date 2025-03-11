@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import jalaliday from 'jalaliday'
 import locale from 'antd/locale/fa_IR';
 import 'dayjs/locale/fa';
+import NextTopLoader from 'nextjs-toploader';
 
 dayjs.extend(jalaliday);
 dayjs().calendar('jalali').locale('fa').format('YYYY/MM/DD')
@@ -39,6 +40,7 @@ export default function RootLayout({
             <AuthProvider>
               <ConfigProvider direction="rtl" theme={appTheme} locale={farsiMonthsLocale}>
                 <App>
+                  <NextTopLoader color="#6F0E37" zIndex={1600} showSpinner={false}/>
                   {children}
                 </App>
               </ConfigProvider>

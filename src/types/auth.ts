@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 
-export type AuthStep = "phone" | "otp" | "info" | "calendar" | "service" | "newService";
+export type AuthStep = "phone" | "otp" | "info" | "calendar" | "service" | "newService" | "home" | "dashboardCalendar" | "dashboardServices" | "newTurn" | "profile";
 export type DayKey =
   | "شنبه"
   | "یک‌شنبه"

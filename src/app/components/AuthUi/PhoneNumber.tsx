@@ -38,7 +38,7 @@ export default function PhoneNumber() {
   };
 
   return (
-    <div className="mx-auto flex flex-col justify-around min-h-[570px] text-center w-full">
+    <div className="mx-auto !bg-[#FFFFF] flex flex-col justify-around min-h-[570px] text-center w-full">
       <div className="">
         <Title className="text-center" level={5}>
           ورود یا ثبت‌نام
