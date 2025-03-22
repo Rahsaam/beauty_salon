@@ -41,3 +41,10 @@ export const timingOptions = [
   { value: "45 دقیقه", label: "45 دقیقه" },
   { value: "60 دقیقه", label: "60 دقیقه" },
 ];
+
+export const servicesOptions = [
+  { value: "اکستنشن", label: "اکستنشن" },
+  { value: "میکاپ", label: "میکاپ" },
+  { value: "فیشیال", label: "فیشیال" },
+  { value: "ماسک مو", label: "ماسک مو" },
+];

@@ -4,6 +4,7 @@ import { LiaHandsHelpingSolid } from "react-icons/lia";
 
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
+import { toFarsiDigits } from "@/helper/toFarsiDigits";
 
 export default function Home() {
     const {name} = useAuth();
@@ -22,7 +23,7 @@ export default function Home() {
             <PiSunDimLight className="text-3xl" color="#6F0E37" />
           </div>
           <div className="flex flex-col items-center mt-4">
-            <span className="text-[22px] font-bold">4</span>
+            <span className="text-[22px] font-bold">{toFarsiDigits(`${4}`)}</span>
             <span className="text-xs text-[#CBBFC4] font-extralight mt-2">
               نوبت های رزرو شده‌ی امروز
             </span>
@@ -36,7 +37,7 @@ export default function Home() {
           />
           </div>
           <div className="flex flex-col items-center mt-4">
-            <span className="text-[22px] font-bold">120</span>
+            <span className="text-[22px] font-bold">{toFarsiDigits(`${120}`)}</span>
             <span className="text-xs text-[#CBBFC4] font-extralight mt-2">
               خدمات ارایه شده
             </span>

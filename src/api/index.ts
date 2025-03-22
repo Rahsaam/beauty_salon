@@ -50,12 +50,21 @@ import axios from "axios";
  * Axios 객체
  **/
 
+// const request = axios.create({
+//   baseURL: 'https://teamim.org/beauty/api/',
+//   headers: {
+//     "Content-Type": "application/json",
+//     Accept: "application/json",
+//   },
+// });
+
 const request = axios.create({
-  baseURL: 'https://teamim.org/beauty/api/',
+  baseURL: "/api/", // از رایتینگ استفاده می‌کنیم، نیازی به URL کامل نیست
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
+  withCredentials: true, // ارسال کوکی‌ها برای احراز هویت
 });
 
 /**

@@ -4,10 +4,12 @@ import { Button, Flex } from "antd";
 import { Suspense, useEffect, useState } from "react";
 import Loading from "./Loading";
 import { useRouter } from "nextjs-toploader/app";
+// import { useAuthActions } from "@/hooks/useAuthActions";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  // const {professionalSignupMutation} = useAuthActions();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -17,7 +19,8 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  function goToAuthPage() {
+  async function goToAuthPage() {
+    // await professionalSignupMutation.mutateAsync();
     router.push("/Auth");
   }
   return (

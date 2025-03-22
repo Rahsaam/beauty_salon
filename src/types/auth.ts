@@ -1,6 +1,22 @@
 import { Dayjs } from "dayjs";
 
-export type AuthStep = "phone" | "otp" | "info" | "calendar" | "service" | "newService" | "home" | "dashboardCalendar" | "dashboardServices" | "newTurn" | "profile";
+export type AuthStep =
+  | "phone"
+  | "otp"
+  | "info"
+  | "calendar"
+  | "service"
+  | "newService"
+  | "home"
+  | "dashboardCalendar"
+  | "dashboardServices"
+  | "profile"
+  | "turnDetail"
+  | "cancelTurn"
+  | "editTurn"
+  | "newTurn"
+  | "setTurn";
+  
 export type DayKey =
   | "شنبه"
   | "یک‌شنبه"

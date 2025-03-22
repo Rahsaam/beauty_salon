@@ -11,7 +11,7 @@
 .first-loading-container {
   font-family: 'IranSans' !important;
   direction: rtl;
-  background-color: #C7274B;
+  background-color: #6F0E37;
   display: grid;
   place-items: center;
   height: 100vh;
@@ -88,6 +88,19 @@
   border: 1.5px solid #6F0E37 !important;
 }
 
+.ant-input:hover,
+.ant-input:focus {
+  border-color: #6F0E37 !important;
+  box-shadow: none;
+}
+
+.ant-btn:disabled {
+  background-color: #E9DCE1 !important;
+  border-color: #E9DCE1 !important;
+  color: rgba(0, 0, 0, 0.25) !important;
+  color: #eecddb;
+}
+
 .weekdays {
   width: 100%;
   display: flex;
@@ -131,4 +144,47 @@
   padding: 13px !important;
   box-shadow: unset !important;
 
+}
+/* ant tabs */
+.ant-tabs-nav-wrap {
+  justify-content: center;
+  margin-left: -26px !important;
+}
+/*  */
+
+/* Container for no appointments message */
+.no-appointments {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Adjust height as needed */
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Style the text */
+.no-appointments p {
+  font-size: 18px;
+  color: #888;
+  font-family: "Vazir", sans-serif; /* Use a Persian font if available */
+  margin: 0;
+}
+
+/* Loading container */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px; /* Match the no-appointments height */
+}
+
+/* Loading text */
+.loading-text {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+  font-family: "Vazir", sans-serif; /* Use a Persian font if available */
 }

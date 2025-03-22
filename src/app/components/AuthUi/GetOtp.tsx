@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
+import { toFarsiDigits } from "@/helper/toFarsiDigits";
 import { useTimer } from "@/hooks/useTimer";
 import { Button, Input, Typography } from "antd";
 import { OTPProps } from "antd/es/input/OTP";
@@ -21,6 +22,7 @@ export default function GetOtp() {
   
   useEffect(() => {
     startTimer(30);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleResend = async () => {
@@ -49,7 +51,7 @@ export default function GetOtp() {
 
     if (timer > 0) {
       return {
-        text: `تأیید کد (${timer}s)`,
+        text: `تأیید کد (${toFarsiDigits(`${timer}`)} ثانیه)`,
         onClick: handleSubmit,
         disabled: otp.length !== 4 || loading,
       };
@@ -68,7 +70,7 @@ export default function GetOtp() {
   };
 
   const handleEditPhoneNumber = () => {
-    setCurrentStep("phone"); // تغییر مرحله به phone
+    setCurrentStep("phone");
   };
 
   
@@ -85,9 +87,9 @@ export default function GetOtp() {
           کد ارسال شده به شماره موبایل خود را وارد نمایید
         </p>
         <div className="bg-[#e4c6d6] max-w-36 mx-auto text-center justify-around flex rounded-2xl items-center mb-4">
-          <CiEdit onClick={handleEditPhoneNumber} className="text-xl font-bold pointer" />
-          <span className="inline-block  text-[#923468] py-1 font-extralight ">
-            {phoneNumber.replace("+98", "0")}
+          <CiEdit onClick={handleEditPhoneNumber} className="text-2xl font-bold cursor-pointer" color="#6F0E37"/>
+          <span className="inline-block  text-[#923468] py-1 ">
+            {toFarsiDigits(phoneNumber.replace("+98", "0"))}
           </span>
         </div>
 
@@ -102,7 +104,7 @@ export default function GetOtp() {
 
         {timer > 0 ? (
           <div className="mt-4 text-sm font-extralight">
-            زمان باقیمانده: {timer} ثانیه
+            زمان باقیمانده: {toFarsiDigits(`${timer}`)} ثانیه
           </div>
         ) : (
           ""

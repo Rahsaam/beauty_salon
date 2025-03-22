@@ -1,11 +1,19 @@
 // context/AuthContext.tsx
 "use client";
-import { createContext, useContext, ReactNode, useState, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import { useAuthActions } from "@/hooks/useAuthActions";
 import { useSteps } from "@/hooks/useSteps";
 import { useWorkHours } from "@/hooks/useWorkHours";
 import { AuthStep, DayKey, WorkHours } from "@/types/auth";
 import { Dayjs } from "dayjs";
+import { IAppointment } from "@/types/api";
+import { Dispatch, SetStateAction } from "react";
 
 type AuthContextType = {
   phoneNumber: string;
@@ -21,6 +29,11 @@ type AuthContextType = {
   category: string;
   price: string;
   timing: string;
+  professionalId: string | null;
+  selectedAppointment: IAppointment | null;
+  selectedDate: string | null;
+  setSelectedDate: (date: string | null) => void;
+  setSelectedAppointment: (value: IAppointment | null) => void;
   setTiming: (value: string) => void;
   setPrice: (value: string) => void;
   setCategory: (value: string) => void;
@@ -36,6 +49,7 @@ type AuthContextType = {
   handleResendOtp: () => Promise<void>;
   goToNextStep: () => void;
   goToPrevStep: () => void;
+  setWorkHours: Dispatch<SetStateAction<WorkHours>>;
   addWorkHours: (day: DayKey) => void;
   removeWorkHours: (day: DayKey, id: number) => void;
   updateWorkHours: (
@@ -54,16 +68,45 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [name, setName] = useState("");
   const [city, setCity] = useState("");
   const [myServices, setMyServices] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("دسته بندی");
   const [repeat, setRepeat] = useState("");
   const [price, setPrice] = useState("");
   const [timing, setTiming] = useState("");
+  const [professionalId, setProfessionalId] = useState<string | null>(null);
+  const [selectedAppointment, setSelectedAppointment] = useState<IAppointment | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
-  const { currentStep, setCurrentStep, goToNextStep, goToPrevStep } = useSteps('phone');
-  const { workHours, addWorkHours, removeWorkHours, updateWorkHours } = useWorkHours();
-  const { requestOtpMutation, verifyOtpMutation } = useAuthActions();
+
+  const { currentStep, setCurrentStep, goToNextStep, goToPrevStep } =
+    useSteps("phone");
+  const {
+    workHours,
+    setWorkHours,
+    addWorkHours,
+    removeWorkHours,
+    updateWorkHours,
+  } = useWorkHours();
+  const {
+    requestOtpMutation,
+    verifyOtpMutation,
+    professionalSignupMutation,
+    getProfileQuery,
+  } = useAuthActions();
+
+  useEffect(() => {
+    if (getProfileQuery.isSuccess && getProfileQuery.data?.profile?.id) {
+      setProfessionalId(getProfileQuery.data.profile.id);
+      localStorage.setItem("professionalId", getProfileQuery.data.profile.id);
+    }
+  }, [getProfileQuery.isSuccess, getProfileQuery.data]);
+
+  useEffect(() => {
+    const savedProfessionalId = localStorage.getItem("professionalId");
+    if (savedProfessionalId && !professionalId) {
+      setProfessionalId(savedProfessionalId);
+    }
+  }, [professionalId]);
 
   const handleVerify = async () => {
     try {
@@ -77,10 +120,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (currentStep === "otp") {
         await verifyOtpMutation.mutateAsync({ phone_number: phoneNumber, otp });
+        await professionalSignupMutation.mutateAsync();
+        await getProfileQuery.refetch();
+        
         goToNextStep();
       }
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An unknown error occurred");
+      setError(
+        error instanceof Error ? error.message : "An unknown error occurred"
+      );
     } finally {
       setLoading(false);
     }
@@ -123,6 +171,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         category,
         price,
         timing,
+        professionalId,
+        selectedAppointment,
+        selectedDate,
+        setSelectedDate,
+        setSelectedAppointment,
         setTiming,
         setPrice,
         setCategory,
@@ -138,6 +191,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         handleResendOtp,
         goToNextStep,
         goToPrevStep,
+        setWorkHours,
         addWorkHours,
         removeWorkHours,
         updateWorkHours,

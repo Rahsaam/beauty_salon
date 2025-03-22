@@ -62,7 +62,7 @@ export default function PhoneNumber() {
 
         <p className="text-sm font-extralight mt-3">
           با ثبت‌نام و ورود با قوانین{" "}
-          <span className="text-primary">کیوتیم</span> موافقت میکنم
+          <span className="text-[#6F0E37] font-bold cursor-pointer">کیوتیک</span> موافقت میکنم
         </p>
       </div>
 

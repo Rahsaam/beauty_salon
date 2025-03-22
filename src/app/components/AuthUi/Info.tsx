@@ -5,12 +5,13 @@ import { Button, Form, Input, Select, Typography } from "antd";
 const { Title } = Typography;
 
 export default function Info() {
-  const { name, setName, city, setCity, setCurrentStep } = useAuth();
+  const { name, setName, city, setCity, setCurrentStep} = useAuth();
 
   const handleActivityChange = (value: string) => {
     setCity(value);
   };
 
+  
   const handleSubmit = () => {
     setCurrentStep("calendar");
   };
@@ -27,7 +28,7 @@ export default function Info() {
     >
       <div className="">
         <Title className="text-center" level={4}>
-          به کیوتیم خوش آمدید
+          به کیوتیک خوش آمدید
         </Title>
         <Title className="!font-light" level={5}>
           لطفا اطلاعات خود را وارد نمایید
